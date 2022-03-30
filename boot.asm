@@ -1,7 +1,23 @@
-ORG 0x7C00
+ORG 0
 BITS 16
 
+main:
+    jmp short start
+    nop
+    times 33 db 0
+
 start:
+    jmp 0x7c0:run_bootloader
+
+run_bootloader:
+    cli
+    mov ax, 0x7c0
+    mov ds, ax
+    mov es, ax
+    mov ax, 0x00
+    mov ss, ax
+    mov sp, 0x7c0
+    sti
     mov si, message
     call print
     jmp $
